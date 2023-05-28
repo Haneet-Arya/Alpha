@@ -1,10 +1,12 @@
 package arraysAndSortSearch;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public class Array {
     public static void main(String[] args) {
-        int[][] arr = {{1, 4, 9}, {11, 4, 3}, {2, 2, 3}};
+//        int[][] arr = {{1, 4, 9}, {11, 4, 3}, {2, 2, 3}};
 //        reverseArray(arr);
 //        for (int i : arr) {
 //            System.out.print(i + " ");
@@ -19,7 +21,62 @@ public class Array {
 //        maxSubarraySumUsingPrefixSum(arr);
 //        maxSubrraySumUsingKadane(arr);
 //        transpose(arr);
+//        System.out.println(threeSum(new int[]{-1,0,1,2,-1,-4}));
 
+        int[] arr = {11, 15, 6, 8, 9, 10};
+        pairSum2(arr,16);
+    }
+
+    public static void pairSum2(int[] arr, int target){
+        int pivot=-1;
+        for (int i = 0; i < arr.length - 1; i++) {
+            if(arr[i]>arr[i+1]){
+                pivot = i;
+                break;
+            }
+        }
+        int start = pivot+1;
+        int end = pivot;
+        while (start != end) {
+            int sum = arr[start] + arr[end];
+            if (sum == target) {
+                System.out.println(arr[start] + " " + arr[end]);
+                start = (start + 1) % arr.length;
+                end = (end + arr.length - 1) % arr.length;
+
+            }else if(sum<target){
+                start = (start + 1) % arr.length;
+            }else{
+                end = (end + arr.length - 1) % arr.length;
+            }
+        }
+    }
+
+    public static List<List<Integer>> threeSum(int[] nums) {
+        List<List<Integer>> ret = new ArrayList<>();
+        Arrays.sort(nums);
+        int start = 0;
+        int end = nums.length-1;
+        List<Integer> temp = new ArrayList<>();
+        while(start<end){
+            int twoSum = nums[start] + nums[end];
+            if(temp.contains(-twoSum)){
+                List<Integer> list = new ArrayList<>();
+                list.add(nums[start]);
+                list.add(nums[end]);
+                list.add(-twoSum);
+                ret.add(list);
+                temp.add(nums[start]);
+                temp.add(nums[end]);
+            }else if(twoSum>0){
+                temp.add(nums[end]);
+                end--;
+            }else{
+                temp.add(nums[start]);
+                start++;
+            }
+        }
+        return ret;
     }
 
 
