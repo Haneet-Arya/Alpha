@@ -25,6 +25,7 @@ public class Array {
 
         int[] arr = {11, 15, 6, 8, 9, 10};
         pairSum2(arr,16);
+
     }
 
     public static void pairSum2(int[] arr, int target){
